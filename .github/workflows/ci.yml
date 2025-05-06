@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5 # Updated to v5 as per user's last ci.yml
+        with:
+          python-version: "3.12"
+
+      - name: Install SAM CLI
+        run: pip install aws-sam-cli
+
+      - name: Install Production Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Test Dependencies
+        run: pip install -r tests/requirements_test.txt
+
+      - name: Run Pytest
+        run: pytest -q
+
+      # The Makefile `test` target might still be useful for local Docker-based SAM tests
+      # but the CI will now run pytest directly.
+      # If `make test` is still desired in CI, it should be adapted or pytest used directly.
+      # For now, directly running pytest as requested.
+
+      - name: Package application (using make package)
+        run: |
+          mkdir -p dist
+          make package # This zips pipeline_lambda.py and requirements.txt, not the full starter kit
+
+      - name: Upload Lambda package artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pipeline-lambda-zip
+          path: dist/pipeline_lambda.zip

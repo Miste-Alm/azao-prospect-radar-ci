@@ -1,0 +1,11 @@
+# SAM configuration file. For more information, see:
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+version = 0.1
+# default.deploy.parameters.capabilities = "CAPABILITY_IAM"
+# default.deploy.parameters.stack_name = "azao-prospect-radar-ci"
+# default.deploy.parameters.s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-xxxxxxx"
+# default.deploy.parameters.s3_prefix = "azao-prospect-radar-ci"
+# default.deploy.parameters.region = "eu-west-1"
+# default.deploy.parameters.confirm_changeset = true
+# default.build.parameters.use_container = true
+# default.invoke.parameters.event_path = "tests/event.json"
