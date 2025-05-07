@@ -40,7 +40,7 @@ jobs:
           make package # This zips pipeline_lambda.py and requirements.txt, not the full starter kit
 
       - name: Upload Lambda package artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pipeline-lambda-zip
           path: dist/pipeline_lambda.zip
